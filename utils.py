@@ -19,11 +19,11 @@ def get_true_records(some_list, list_length):
 
 def calculate_support(flist, slist, list_length):
     support = intersect(flist, slist, list_length) / list_length
-    return support
+    return support * 100
 
 
 
 def calculate_confidence(flist, slist, list_length):
     true_first_records = get_true_records(flist, list_length)
     confidence = intersect(flist, slist, list_length) / true_first_records
-    return confidence
+    return confidence * 100
