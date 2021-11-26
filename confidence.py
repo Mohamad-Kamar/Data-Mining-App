@@ -1,5 +1,15 @@
 from utils import calculate_confidence
 
+"""
+Confidence
+The ratio of the number of
+records having true values for
+attributes of (X and Y) to the
+number of records having true
+values for attributes of X
+"""
+
+
 list_length = 13
 
 
