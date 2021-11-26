@@ -1,3 +1,18 @@
+DATA_SET = [
+    {'A', 'B', 'E'},
+    {'B', 'D'},
+    {'B', 'C'},
+    {'A', 'B', 'D'},
+    {'A', 'C'},
+    {'B', 'C'},
+    {'A', 'C'},
+    {'A', 'B', 'C', 'E'},
+    {'A', 'B', 'C'},
+    {'F'},
+
+]
+
+
 def intersect(flist, slist, list_length):
     total = 0
     for i in range(list_length):
