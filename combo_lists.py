@@ -59,13 +59,18 @@ def main():
         current_comb_to_freq = count_cominations(current_combination, DATA_SET)
         current_filtered_comb_to_freq = filter_combination_frequency_object(current_comb_to_freq, support_value)
 
+        print("=======================")
+        print(k)
+        print(current_combination)
+        print(current_comb_to_freq)
+
         all_combinations_list.append(current_combination)
         combinations_frequency_list.append(current_filtered_comb_to_freq)
         k += 1
 
 
-    print(all_combinations_list[-1])
-    print(combinations_frequency_list[-2])
+    # print(all_combinations_list[-1])
+    # print(combinations_frequency_list[-2])
 
 
 main()
