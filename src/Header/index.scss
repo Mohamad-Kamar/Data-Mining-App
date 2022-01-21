@@ -1,0 +1,25 @@
+.header{
+    height: 40px;
+    background-color: grey;
+    display: flex;
+    justify-content: start;
+
+    &__nav{
+        background-color: black;
+    }
+    &__links{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        li{
+            margin: 10px;
+            padding: 10px;
+            color: white;
+            background-color: white;
+        }
+    }
+}
