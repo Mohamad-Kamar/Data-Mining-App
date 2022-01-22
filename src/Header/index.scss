@@ -2,10 +2,10 @@
     height: 40px;
     background-color: grey;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
+    align-items: center;
 
     &__nav{
-        background-color: black;
     }
     &__links{
         list-style: none;
@@ -20,6 +20,18 @@
             padding: 10px;
             color: white;
             background-color: white;
+        }
+    }
+
+    &__db{
+        display: flex;
+        justify-content: space-between;
+        input{
+            padding: 10px;
+        }
+        button{
+            background-color: salmon;
+            
         }
     }
 }
