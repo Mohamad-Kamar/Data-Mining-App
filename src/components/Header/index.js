@@ -1,9 +1,13 @@
-import { useState } from "react";
 import "./index.scss";
 
-const Header = () => {
-  const [conn, setConn] = useState("Connection String");
-  const [isSubmitted, setIsSubmitted] = useState(false);
+const Header = ({
+  conn,
+  setConn,
+  isSubmitted,
+  setIsSubmitted,
+  onConnClick,
+  onDiscClick,
+}) => {
   return (
     <header className="header">
       <nav className="header__nav">
@@ -22,13 +26,10 @@ const Header = () => {
           disabled={isSubmitted}
           onChange={(e) => setConn(e.target.value)}
         ></input>
-        <button
-          disabled={isSubmitted}
-          onClick={() => (isSubmitted ? null : setIsSubmitted(true))}
-        >
+        <button disabled={isSubmitted} onClick={onConnClick}>
           Connect
         </button>
-        <button onClick={() => (isSubmitted ? setIsSubmitted(false) : null)}>
+        <button disabled={!isSubmitted} onClick={onDiscClick}>
           Disconnect
         </button>
       </div>
