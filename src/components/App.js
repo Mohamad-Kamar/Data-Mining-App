@@ -1,41 +1,21 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import logo from "./logo.svg";
+import { useEffect, useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+
 import "./App.scss";
-import Header from "./Header";
+import Header from "./Header/Header";
+import Home from "./Home/Home";
+import Entries from "./Entries/Entries";
+import AddEntry from "./AddEntry/AddEntry";
 
 function App() {
-  const [conn, setConn] = useState("Connection String");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const onConnClick = () => {
-    if (isSubmitted) {
-      return;
-    } else {
-      setIsSubmitted(true);
-    }
-  };
-
-  const onDiscClick = () => {
-    if (!isSubmitted) {
-      return;
-    } else {
-      setIsSubmitted(true);
-    }
-  };
-
-  useEffect(() => {}, []);
   return (
     <div className="App">
-      <Header
-        conn={conn}
-        setConn={setConn}
-        isSubmitted={isSubmitted}
-        setIsSubmitted={setIsSubmitted}
-        onConnClick={onConnClick}
-        onDiscClick={onDiscClick}
-      />
-      <img src={logo} className="App-logo" alt="logo" />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="entries" element={<Entries />} />
+        <Route path="add-entry" element={<AddEntry />} />
+      </Routes>
     </div>
   );
 }
