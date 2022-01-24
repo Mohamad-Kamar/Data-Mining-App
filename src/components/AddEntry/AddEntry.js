@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import { generateTransWithTax } from "../../utils";
 import "./AddEntry.scss";
 
 const AddEntry = () => {
+  const navigate = useNavigate();
+
+  const [entryName, setEntryName] = useState("");
   const [transTaxValues, setTransTaxValues] = useState({
     trans: "",
     tax: "",
@@ -16,7 +21,8 @@ const AddEntry = () => {
     e.preventDefault();
     try {
       const results = generateTransWithTax(transTaxValues, isTaxAdded);
-      setFinalTransaction(results);
+      const stringifiedRes = JSON.stringify(results, null, 2);
+      setFinalTransaction(stringifiedRes);
       setIsSubmitAllowed(true);
     } catch (e) {
       console.error(e);
@@ -24,12 +30,22 @@ const AddEntry = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/entry/${entryName}`, {
+      state: {
+        entryName,
+        data: JSON.parse(finalTransaction),
+      },
+    });
+  };
   return (
     <div className="entry">
       <div className="page-title">
-        <h1>AddEntry</h1>
+        <h1>Add Entry</h1>
+        <input onChange={(e) => setEntryName(e.target.value)}></input>
       </div>
-      <form className="entry__form">
+      <form className="entry__form" onSubmit={handleSubmit}>
         <div className="entry__inputs">
           <div className="entry__input">
             <h3>Transactions</h3>

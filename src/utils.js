@@ -37,7 +37,5 @@ export const generateTransWithTax = (transTaxValues, isTaxAdded) => {
   const uniqueTaxedTransValues = taxedTransValues.map((val) => [
     ...new Set(val),
   ]);
-  const stringifiedRes = JSON.stringify(uniqueTaxedTransValues, null, 2);
-  console.log(stringifiedRes);
-  return stringifiedRes;
+  return uniqueTaxedTransValues;
 };
