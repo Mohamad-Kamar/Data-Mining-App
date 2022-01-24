@@ -24,6 +24,10 @@ export class Node {
     }
   }
 
+  isParent() {
+    return this.children.length > 0;
+  }
+
   toString() {
     return `${this.value} has id of ${this.id} and parent ${
       this.parent.value

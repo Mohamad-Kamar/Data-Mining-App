@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { generateTransWithTax } from "../../utils";
 import TransactionsTable from "../TransactionsTable/TransactionsTable";
 import "./AddEntry.scss";
+import EntryInputs from "./EntryInputs";
 
 const AddEntry = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const AddEntry = () => {
     tax: "",
   });
   const [isTaxAdded, setIsTaxAdded] = useState(false);
+  const [isTransHidden, setIsTransHidden] = useState(false);
   const [finalTransaction, setFinalTransaction] = useState("");
   const [isTableView, setIsTableView] = useState(false);
 
@@ -23,7 +25,10 @@ const AddEntry = () => {
     console.log("HANDILING");
     e.preventDefault();
     try {
-      const results = generateTransWithTax(transTaxValues, isTaxAdded);
+      const [results, generatedTree] = generateTransWithTax(
+        transTaxValues,
+        isTaxAdded
+      );
       const stringifiedRes = JSON.stringify(results, null, 2);
       setFinalTransaction(stringifiedRes);
       setIsSubmitAllowed(true);
@@ -52,48 +57,21 @@ const AddEntry = () => {
           });
         }}
       >
-        <div className="entry__inputs">
-          <div className="entry__input">
-            <h3>Transactions</h3>
-            <textarea
-              required
-              className="entry__textarea"
-              onChange={(e) => {
-                setTransTaxValues({
-                  ...transTaxValues,
-                  trans: e.target.value,
-                });
-                console.log("CLICKED WITH VAL: " + e.target.value);
-              }}
-            ></textarea>
-          </div>
-        </div>
         <div>
-          <br></br>
+          <label>hide transaction section</label>
           <input
             type="checkbox"
-            onChange={() => {
-              setIsTaxAdded(!isTaxAdded);
-            }}
+            onChange={() => setIsTransHidden(!isTransHidden)}
           ></input>
-          <label>Add Taxonomy</label>
         </div>
+        <EntryInputs
+          hidden={isTransHidden}
+          transTaxValues={transTaxValues}
+          setTransTaxValues={setTransTaxValues}
+          setIsTaxAdded={setIsTaxAdded}
+          isTaxAdded={isTaxAdded}
+        />
 
-        <div className="entry__inputs">
-          <div className="entry__input">
-            <h3>Taxonomies</h3>
-            <textarea
-              disabled={!isTaxAdded}
-              className="entry__textarea"
-              onChange={(e) =>
-                setTransTaxValues({
-                  ...transTaxValues,
-                  tax: e.target.value,
-                })
-              }
-            ></textarea>
-          </div>
-        </div>
         <div>
           <button onClick={handleGenerateTransactions}>
             Generate Transactions

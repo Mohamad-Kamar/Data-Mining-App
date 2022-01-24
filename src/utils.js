@@ -17,7 +17,7 @@ export const generateTransWithTax = (transTaxValues, isTaxAdded) => {
   console.log("GENERATING");
   const allValues = csvToArray(transTaxValues.trans);
 
-  if (!isTaxAdded) return JSON.stringify(allValues, null, 2);
+  if (!isTaxAdded) return [allValues, null];
   console.log("GOT ALL VALUES" + JSON.stringify(allValues));
 
   const root = new Node(null, null, null);
@@ -37,5 +37,5 @@ export const generateTransWithTax = (transTaxValues, isTaxAdded) => {
   const uniqueTaxedTransValues = taxedTransValues.map((val) => [
     ...new Set(val),
   ]);
-  return uniqueTaxedTransValues;
+  return [uniqueTaxedTransValues, taxonomyTree];
 };
