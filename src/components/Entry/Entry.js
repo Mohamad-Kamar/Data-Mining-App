@@ -1,10 +1,11 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const Entry = () => {
   const {
-    state: { entryName, data },
+    state: { data },
   } = useLocation();
 
+  const { entryName } = useParams();
   return (
     <div>
       <h1>{entryName}</h1>

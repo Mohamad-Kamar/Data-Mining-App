@@ -1,0 +1,12 @@
+.trans-table{
+    border: 2px solid grey;
+    &-row{
+        margin: 2px;
+        border: 1px solid black;
+    }
+    &-col{
+        margin: 2px;
+        border: 1px solid black;
+        padding: 5px;
+    }
+}
