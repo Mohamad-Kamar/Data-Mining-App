@@ -3,7 +3,7 @@ import Candidate from "./Candidate";
 import { getCandidateFromTransactions } from "./../../../utils";
 import "./Candidates.scss";
 
-const Candidates = ({ finalTransaction, generatedTree }) => {
+const Candidates = ({ finalTransaction, generatedTree, isCandsHidden }) => {
   const [allCandidates, setAllCandidates] = useState([]);
   const [supportValue, setSupportValue] = useState("Support Percentage");
 
@@ -34,7 +34,7 @@ const Candidates = ({ finalTransaction, generatedTree }) => {
   };
 
   return (
-    <div className="candidates">
+    <div className="candidates" hidden={isCandsHidden}>
       <input
         onChange={(e) => setSupportValue(e.target.value)}
         value={supportValue}

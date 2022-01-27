@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { generateTransWithTax } from "../../utils";
@@ -18,6 +18,7 @@ const AddEntry = () => {
   });
   const [isTaxAdded, setIsTaxAdded] = useState(false);
   const [isTransHidden, setIsTransHidden] = useState(false);
+  const [isCandsHidden, setIsCandsHidden] = useState(false);
   const [finalTransaction, setFinalTransaction] = useState("");
   const [isTableView, setIsTableView] = useState(false);
 
@@ -107,14 +108,15 @@ const AddEntry = () => {
         )}
 
         <Candidates
+          isCandsHidden={isCandsHidden}
           finalTransaction={
             finalTransaction.length ? JSON.parse(finalTransaction) : []
           }
           generatedTree={generatedTree}
         />
         <div>
-          <button type="submit" disabled={!isSubmitAllowed}>
-            Submit
+          <button onClick={() => setIsCandsHidden(!isCandsHidden)}>
+            Hide Candidates
           </button>
         </div>
       </div>
