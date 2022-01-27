@@ -18,7 +18,6 @@ const EntryInputs = ({
                 ...transTaxValues,
                 trans: e.target.value,
               });
-              console.log("CLICKED WITH VAL: " + e.target.value);
             }}
           ></textarea>
         </div>

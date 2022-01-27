@@ -1,0 +1,17 @@
+.tables{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+table{
+    border: 2px solid grey;
+    tr{
+        margin: 2px;
+        border: 1px solid black;
+    }
+    td{
+        margin: 2px;
+        border: 1px solid black;
+        padding: 5px;
+    }
+}

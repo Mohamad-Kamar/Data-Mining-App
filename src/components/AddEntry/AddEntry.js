@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { generateTransWithTax } from "../../utils";
 import TransactionsTable from "../TransactionsTable/TransactionsTable";
+import EntryInputs from "./EntryInputs/EntryInputs";
+import Candidates from "./Candidates/Candidates";
+
 import "./AddEntry.scss";
-import EntryInputs from "./EntryInputs";
 
 const AddEntry = () => {
   const navigate = useNavigate();
@@ -19,18 +21,20 @@ const AddEntry = () => {
   const [finalTransaction, setFinalTransaction] = useState("");
   const [isTableView, setIsTableView] = useState(false);
 
+  const [generatedTree, setGeneratedTree] = useState();
   const [isSubmitAllowed, setIsSubmitAllowed] = useState(false);
 
   const handleGenerateTransactions = (e) => {
     console.log("HANDILING");
     e.preventDefault();
     try {
-      const [results, generatedTree] = generateTransWithTax(
+      const [results, generatedTreeObj] = generateTransWithTax(
         transTaxValues,
         isTaxAdded
       );
       const stringifiedRes = JSON.stringify(results, null, 2);
       setFinalTransaction(stringifiedRes);
+      setGeneratedTree(generatedTreeObj);
       setIsSubmitAllowed(true);
     } catch (e) {
       console.error(e);
@@ -45,7 +49,7 @@ const AddEntry = () => {
         <label>Entry Tittle:</label>
         <input onChange={(e) => setEntryName(e.target.value)}></input>
       </div>
-      <form
+      <div
         className="entry__form"
         onSubmit={(e) => {
           e.preventDefault();
@@ -102,12 +106,18 @@ const AddEntry = () => {
           </div>
         )}
 
+        <Candidates
+          finalTransaction={
+            finalTransaction.length ? JSON.parse(finalTransaction) : []
+          }
+          generatedTree={generatedTree}
+        />
         <div>
           <button type="submit" disabled={!isSubmitAllowed}>
             Submit
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
