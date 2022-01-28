@@ -1,3 +1,5 @@
+import "./EntryInputs.scss";
+
 const EntryInputs = ({
   hidden,
   transTaxValues,
@@ -36,7 +38,9 @@ const EntryInputs = ({
       <div className="entry__inputs">
         <div className="entry__input">
           <h3>Taxonomies</h3>
+          <div>
           <textarea
+            type="text"
             disabled={!isTaxAdded}
             className="entry__textarea"
             onChange={(e) =>
@@ -46,6 +50,8 @@ const EntryInputs = ({
               })
             }
           ></textarea>
+          </div>
+
         </div>
       </div>
     </div>

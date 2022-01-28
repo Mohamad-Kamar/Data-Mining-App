@@ -116,7 +116,7 @@ const AddEntry = () => {
         />
         <div>
           <button onClick={() => setIsCandsHidden(!isCandsHidden)}>
-            Hide Candidates
+            {isCandsHidden ? "Show Candidates" : "Hide Candidates"}
           </button>
         </div>
       </div>

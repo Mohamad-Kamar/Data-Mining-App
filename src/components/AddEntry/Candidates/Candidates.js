@@ -19,6 +19,7 @@ const Candidates = ({ finalTransaction, generatedTree, isCandsHidden }) => {
         setAllCandidates={setAllCandidates}
         idx={idx}
         finalTransaction={finalTransaction}
+        generatedTree={generatedTree}
         handleChildCandidateAdded={handleChildCandidateAdded}
       />
     );

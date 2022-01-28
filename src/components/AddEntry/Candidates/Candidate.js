@@ -39,7 +39,24 @@ const Candidate = ({
             <tbody>
               {cData.data.map((elem, idx) => (
                 <tr key={idx}>
-                  <td>{elem.itemSet.join(" ")}</td>
+                  <td>
+                    {elem.itemSet.map((elem) => {
+                      return (
+                        <span
+                          style={{
+                            backgroundColor: generatedTree
+                              .findChild(elem)
+                              .isParent()
+                              ? "pink"
+                              : "white",
+                            padding: "5px",
+                          }}
+                        >
+                          {elem}
+                        </span>
+                      );
+                    })}
+                  </td>
                   <td>{elem.count}</td>
                 </tr>
               ))}
@@ -59,7 +76,24 @@ const Candidate = ({
             <tbody>
               {lData.data.map((elem, idx) => (
                 <tr key={idx}>
-                  <td>{elem.itemSet.join(" ")}</td>
+                  <td>
+                    {elem.itemSet.map((elem) => {
+                      return (
+                        <span
+                          style={{
+                            backgroundColor: generatedTree
+                              .findChild(elem)
+                              .isParent()
+                              ? "pink"
+                              : "white",
+                            padding: "5px",
+                          }}
+                        >
+                          {elem}
+                        </span>
+                      );
+                    })}
+                  </td>{" "}
                   <td>{elem.count}</td>
                 </tr>
               ))}
