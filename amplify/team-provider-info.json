@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dataminingapp-dev-160834-authRole",
+      "UnauthRoleArn": "arn:aws:iam::392415446129:role/amplify-dataminingapp-dev-160834-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::392415446129:role/amplify-dataminingapp-dev-160834-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-dataminingapp-dev-160834-deployment",
+      "UnauthRoleName": "amplify-dataminingapp-dev-160834-unauthRole",
+      "StackName": "amplify-dataminingapp-dev-160834",
+      "StackId": "arn:aws:cloudformation:us-east-1:392415446129:stack/amplify-dataminingapp-dev-160834/6d9c1f40-f6e3-11ec-b54d-0a59224ca017",
+      "AmplifyAppId": "d1rff4axbkxexr"
+    }
+  }
+}
