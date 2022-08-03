@@ -13,6 +13,7 @@ const EntryInputs = ({
         <div className="entry__input">
           <h3>Transactions</h3>
           <textarea
+            value={transTaxValues.trans}
             required
             className="entry__textarea"
             onChange={(e) => {
@@ -39,17 +40,18 @@ const EntryInputs = ({
         <div className="entry__input">
           <h3>Taxonomies</h3>
           <div>
-          <textarea
-            type="text"
-            disabled={!isTaxAdded}
-            className="entry__textarea"
-            onChange={(e) =>
-              setTransTaxValues({
-                ...transTaxValues,
-                tax: e.target.value,
-              })
-            }
-          ></textarea>
+            <textarea
+              value={transTaxValues.tax}
+              type="text"
+              disabled={!isTaxAdded}
+              className="entry__textarea"
+              onChange={(e) =>
+                setTransTaxValues({
+                  ...transTaxValues,
+                  tax: e.target.value,
+                })
+              }
+            ></textarea>
           </div>
 
         </div>

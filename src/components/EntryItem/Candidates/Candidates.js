@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Candidate from "./Candidate";
-import { getCandidateFromTransactions } from "./../../../utils";
+import { getCandidateFromTransactions } from "../../../utils";
 import "./Candidates.scss";
 
 const Candidates = ({ finalTransaction, generatedTree, isCandsHidden }) => {

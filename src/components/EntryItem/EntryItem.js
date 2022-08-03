@@ -1,21 +1,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { addEntry, editEntry } from "../../utils/firebase-entries-collection";
 import { generateTransWithTax } from "../../utils";
 import TransactionsTable from "../TransactionsTable/TransactionsTable";
 import EntryInputs from "./EntryInputs/EntryInputs";
 import Candidates from "./Candidates/Candidates";
 
-import "./AddEntry.scss";
+import "./EntryItem.scss";
 
-const AddEntry = () => {
+const EntryItem = ({ isEditing, entryProps }) => {
   const navigate = useNavigate();
 
-  const [entryName, setEntryName] = useState("");
-  const [transTaxValues, setTransTaxValues] = useState({
+  const [entryName, setEntryName] = useState(entryProps?.entryName || "");
+  const [transTaxValues, setTransTaxValues] = useState(entryProps?.transTaxValues || {
     trans: "",
     tax: "",
   });
+
+  console.log(isEditing);
+  console.log(entryProps);
+
   const [isTaxAdded, setIsTaxAdded] = useState(false);
   const [isTransHidden, setIsTransHidden] = useState(false);
   const [isCandsHidden, setIsCandsHidden] = useState(false);
@@ -43,12 +48,36 @@ const AddEntry = () => {
     }
   };
 
+  const handleSaveChanges = (e) => {
+    console.log("SAVING");
+    e.preventDefault();
+    //Show loading
+
+    try {
+      const newEntryData = { entryName, transTaxValues }
+      if (isEditing) {
+        newEntryData.id = entryProps.entryID
+        editEntry(newEntryData)
+      }
+      else {
+        addEntry(newEntryData)
+      }
+    }
+    catch (e) {
+      //Show Error
+      console.log("ERROR!", e);
+    }
+    finally {
+      //Stop Loading
+    }
+  };
+
   return (
     <div className="entry">
       <div className="page-title">
         <h1>Add Entry</h1>
         <label>Entry Tittle:</label>
-        <input onChange={(e) => setEntryName(e.target.value)}></input>
+        <input onChange={(e) => setEntryName(e.target.value)} value={entryName}></input>
       </div>
       <div
         className="entry__form"
@@ -80,6 +109,11 @@ const AddEntry = () => {
         <div>
           <button onClick={handleGenerateTransactions}>
             Generate Transactions
+          </button>
+        </div>
+        <div>
+          <button onClick={handleSaveChanges}>
+            Save Changes
           </button>
         </div>
         <div>
@@ -123,4 +157,4 @@ const AddEntry = () => {
     </div>
   );
 };
-export default AddEntry;
+export default EntryItem;
