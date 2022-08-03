@@ -1,15 +1,15 @@
 import { useLocation, useParams } from "react-router-dom";
+import EntryItem from "./../EntryItem/EntryItem";
 
 const Entry = () => {
-  const {
-    state: { data },
-  } = useLocation();
-
-  const { entryName } = useParams();
+  const { entryID } = useParams();
+  const entryProps = useLocation().state;
   return (
-    <div>
-      <h1>{entryName}</h1>
-    </div>
+    (
+      !entryProps?
+      "loading...":
+      <EntryItem isEditing={true} entryProps={{ ...entryProps }} />
+    )
   );
 };
 export default Entry;
