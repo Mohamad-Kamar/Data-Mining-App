@@ -3,11 +3,16 @@ import { app } from "./../firebase-config";
 const ref = app.collection("Entries");
 
 export const getAllEntries = async () => {
-    const entryDoc = await ref.get()
-    const entries = entryDoc.docs.map((doc) => doc.data());
+    const entryDocs = await ref.get()
+    const entries = entryDocs.docs.map((doc) => ({ ...doc.data(), entryID: doc.id }));
     return entries;
 }
 
+export const getEntry = async (entryId) => {
+    const entryDoc = await ref.doc(entryId).get();
+    return entryDoc.data();
+
+}
 
 export const addEntry = async (entryData) => {
     const createdDoc = await ref.doc().set(entryData);
