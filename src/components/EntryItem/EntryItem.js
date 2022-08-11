@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { addEntry, editEntry } from "../../utils/firebase-entries-collection";
 import { generateTransWithTax } from "../../utils";
 import TransactionsTable from "../TransactionsTable/TransactionsTable";
 import EntryInputs from "./EntryInputs/EntryInputs";
@@ -9,7 +8,7 @@ import Candidates from "./Candidates/Candidates";
 
 import "./EntryItem.scss";
 
-const EntryItem = ({ isEditing, entryProps }) => {
+const EntryItem = ({ isEditing, entryProps, dbSelected }) => {
   const navigate = useNavigate();
 
   const [entryName, setEntryName] = useState(entryProps?.entryName || "");
@@ -17,9 +16,6 @@ const EntryItem = ({ isEditing, entryProps }) => {
     trans: "",
     tax: "",
   });
-
-  console.log(isEditing);
-  console.log(entryProps);
 
   const [isTaxAdded, setIsTaxAdded] = useState(false);
   const [isTransHidden, setIsTransHidden] = useState(false);
@@ -31,7 +27,6 @@ const EntryItem = ({ isEditing, entryProps }) => {
   const [isSubmitAllowed, setIsSubmitAllowed] = useState(false);
 
   const handleGenerateTransactions = (e) => {
-    console.log("HANDILING");
     e.preventDefault();
     try {
       const [results, generatedTreeObj] = generateTransWithTax(
@@ -49,18 +44,16 @@ const EntryItem = ({ isEditing, entryProps }) => {
   };
 
   const handleSaveChanges = (e) => {
-    console.log("SAVING");
     e.preventDefault();
     //Show loading
 
     try {
       const newEntryData = { entryName, transTaxValues }
       if (isEditing) {
-        newEntryData.id = entryProps.entryID
-        editEntry(newEntryData)
+        dbSelected.DB_Object.editEntry(newEntryData, entryProps.entryID)
       }
       else {
-        addEntry(newEntryData)
+        dbSelected.DB_Object.addEntry(newEntryData)
       }
     }
     catch (e) {

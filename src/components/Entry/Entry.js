@@ -1,14 +1,13 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import EntryItem from "./../EntryItem/EntryItem";
 
-const Entry = () => {
-  const { entryID } = useParams();
+const Entry = ({dbSelected}) => {
   const entryProps = useLocation().state;
   return (
     (
       !entryProps?
       "loading...":
-      <EntryItem isEditing={true} entryProps={{ ...entryProps }} />
+      <EntryItem isEditing={true} entryProps={{ ...entryProps }} dbSelected={dbSelected} />
     )
   );
 };

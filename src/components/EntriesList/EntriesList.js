@@ -1,22 +1,18 @@
 import "./EntriesList.scss";
-import { getAllEntries } from "./../../utils/firebase-entries-collection"
 import { useState, useEffect } from "react";
 import EntryListItem from "../EntryListItem/EntryListItem";
-import { deletEntry } from "./../../utils/firebase-entries-collection";
-import { globalConfigs } from "../../configs/global-configs";
 
-
-const EntriesList = () => {
+const EntriesList = ({dbSelected}) => {
   let [allEntryData, setAllEntryData] = useState();
   useEffect(() => {
     (async () => {
-      const entries = await getAllEntries()
+      const entries = await dbSelected.DB_Object.getAllEntries();
       setAllEntryData(entries);
     })()
-  }, []);
+  }, [dbSelected]);
 
   const handleDelete = (entryID) => {
-    deletEntry(entryID).then(res=>{
+    dbSelected.DB_Object.deletEntry(entryID).then(res=>{
       setAllEntryData(allEntryData.filter(entry => entry.entryID !== entryID))
     })
   }
