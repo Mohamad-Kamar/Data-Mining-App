@@ -1,6 +1,6 @@
-import { app } from "./../firebase-config";
+import { firestore } from "./../firebase-config";
 
-const ref = app.collection("Entries");
+const ref = firestore.collection("Entries");
 
 export const getAllEntries = async () => {
     const entryDocs = await ref.get()
@@ -24,7 +24,8 @@ export const deletEntry = async (entryId) => {
     return deletedDoc;
 }
 
-export const editEntry = async (entryData) => {
+export const editEntry = async (entryData, entryId) => {
+    entryData.id = entryId;
     const modifiedDoc = await ref.doc(entryData.id).update(entryData);
     return modifiedDoc;
 }
