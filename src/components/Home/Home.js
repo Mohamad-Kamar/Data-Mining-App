@@ -13,7 +13,7 @@ const Home = ({dbSelected, setGlobalDBSelected}) => {
       <img src={logo} className="App-logo" alt="logo" />
       <h2>Welcome</h2>
       <h2>Select Your DB</h2>
-      <select value={dbSelected} onChange={setGlobalDBSelected}>
+      <select value={dbSelected.DB_Selected} onChange={setGlobalDBSelected}>
         {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.text}

@@ -1,5 +1,4 @@
-import { globalConfigs } from "../configs/global-configs"
 
-export const hasSelectedDB = () =>{
-    return globalConfigs.DB_Selected !== "";
+export const uniqueID = () => {
+    return Math.floor(Math.random() * Date.now()).toString()
 }
