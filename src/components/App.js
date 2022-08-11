@@ -8,24 +8,34 @@ import EntriesList from "./EntriesList/EntriesList";
 import EntryItem from "./EntryItem/EntryItem";
 import Entry from "./Entry/Entry";
 import { globalConfigs } from "../configs/global-configs";
+import { DYNAMO_DB_NAME, FIREBASE_DB_NAME } from "../constants/global-constants";
+
+import * as firebaseOps from "./../utils/firebase-entries-collection";
+import * as dynamoOps from "./../utils/dynamodb-entries-collection";
+
+
+const mappings = {
+  [DYNAMO_DB_NAME]: dynamoOps,
+  [FIREBASE_DB_NAME]: firebaseOps
+}
 
 function App() {
-  const { DB_Selected } = globalConfigs;
-  const [dbSelected, setDBSelected] = useState(DB_Selected);
+  const [dbSelected, setDBSelected] = useState({...globalConfigs});
 
   const setGlobalDBSelected = (e) => {
     const dbName = e.target.value;
     globalConfigs.DB_Selected = dbName;
-    setDBSelected(dbName);
+    globalConfigs.DB_Object = mappings[dbName];
+    setDBSelected({...globalConfigs});
   }
   return (
     <div className="App">
-      <Header dbSelected={dbSelected}/>
+      <Header dbSelected={dbSelected.DB_Selected}/>
       <Routes>
         <Route path="/" element={<Home dbSelected={dbSelected} setGlobalDBSelected={setGlobalDBSelected}/>} />
-        <Route path="entries" element={<EntriesList />} />
-        <Route path="add-entry" element={<EntryItem />} />
-        <Route path="entry/:entryID" element={<Entry />} />
+        <Route path="entries" element={<EntriesList dbSelected={dbSelected}/>} />
+        <Route path="add-entry" element={<EntryItem dbSelected={dbSelected}/>} />
+        <Route path="entry/:entryID" element={<Entry dbSelected={dbSelected}/>} />
       </Routes>
     </div>
   );
