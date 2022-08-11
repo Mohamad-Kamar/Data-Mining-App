@@ -15,22 +15,18 @@ const csvToArray = (csvData) => {
 };
 
 export const generateTransWithTax = (transTaxValues, isTaxAdded) => {
-  console.log("GENERATING");
   const allValues = csvToArray(transTaxValues.trans);
 
   if (!isTaxAdded) return [allValues, null];
 
   const root = new Node(null, null, null);
   const taxonomyTree = new Tree(root, transTaxValues.tax);
-  console.log("CREATED TREE");
 
   const taxedTransValues = allValues.map((transArray) => {
-    console.log("MAPPING TRANS ARRAY");
     const ancestoryChainsArray = transArray.map((courseName) =>
       taxonomyTree.getAncestoryChainArray(courseName)
     );
 
-    console.log("GOT ANCESTORY CHAIN");
     return ancestoryChainsArray.flat();
   });
 
@@ -45,7 +41,6 @@ export const getCandidateFromTransactions = (finalTransaction, support) => {
 
   //allTransactions: ["a", "b", "a", "b", "c"]
   const allTransactions = finalTransaction.flat();
-  console.log(allTransactions);
   //uniqueTransactions: ["a", "b", "c"]
   const uniqueTransactions = [...new Set(allTransactions)];
 
@@ -91,22 +86,16 @@ export const getCandidateFromTransactionsAndPrevData = (
   prevLData,
   combinationLength
 ) => {
-  console.log(
-    "PREV L DATA",
-    prevLData.map((elem) => elem.itemSet)
-  );
+
   //finalTransactions: [["a","b"],["a"],["b","c"]]
   const uniqueTransactions = [
     ...new Set(prevLData.map((elem) => elem.itemSet).flat()),
   ];
-  console.log("UNIQUES: ", uniqueTransactions);
 
   const transactionsCombinations = getPermutations(
     uniqueTransactions,
     combinationLength
   );
-  console.log(combinationLength);
-  console.log("COMBOS: ", transactionsCombinations);
   const cData = new CData();
   for (let combo of transactionsCombinations) {
     let counter = 0;

@@ -19,11 +19,9 @@ export class CData {
     this.data.push(cDataInstance);
   }
   getLData(support, dataLength) {
-    console.log("GETTING L DATA");
     const threshold = dataLength * support;
     const lDataArr = this.data.filter((elem) => elem.count >= threshold);
     const lDataObj = new LData(lDataArr);
-    console.log("GOT L DATA WITH VALUE ", lDataObj);
     return lDataObj;
   }
 }

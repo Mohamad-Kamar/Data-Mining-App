@@ -69,14 +69,12 @@ export class Tree {
   }
 
   getAncestoryChainArray(courseName) {
-    console.log("GENERATING ANCESTORY CHAIN FOR COURSE: " + courseName);
     let child = this.findChild(courseName);
     const ancestoryChain = [];
     while (child.value) {
       ancestoryChain.push(child.value);
       child = child.parent;
     }
-    console.log("ANCESTORY CHAIN: " + JSON.stringify(ancestoryChain));
     return ancestoryChain;
   }
 
