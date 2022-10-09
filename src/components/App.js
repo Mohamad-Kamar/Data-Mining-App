@@ -13,14 +13,29 @@ import { DYNAMO_DB_NAME, FIREBASE_DB_NAME } from "../constants/global-constants"
 import * as firebaseOps from "./../utils/firebase-entries-collection";
 import * as dynamoOps from "./../utils/dynamodb-entries-collection";
 
+import { Consumer } from "@mkamar/mq-lib"
 
 const mappings = {
   [DYNAMO_DB_NAME]: dynamoOps,
   [FIREBASE_DB_NAME]: firebaseOps
 }
 
+
+let url = "http://localhost:3491";
+let colorConsumer = new Consumer(url);
+colorConsumer.connect({queueName: 'BrowserQueue', queueType: 'fanout'});
+
+
+
 function App() {
+
   const [dbSelected, setDBSelected] = useState({...globalConfigs});
+  const [bgColor, setBgColor] = useState('white');
+
+  colorConsumer.setOnMessage((message) => {
+    console.log("Received: ", message);
+    setBgColor(message.data);
+  })
 
   const setGlobalDBSelected = (e) => {
     const dbName = e.target.value;
@@ -29,7 +44,7 @@ function App() {
     setDBSelected({...globalConfigs});
   }
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor: bgColor}}>
       <Header dbSelected={dbSelected.DB_Selected}/>
       <Routes>
         <Route path="/" element={<Home dbSelected={dbSelected} setGlobalDBSelected={setGlobalDBSelected}/>} />
